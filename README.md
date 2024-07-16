@@ -84,6 +84,49 @@ Upon reading various articles on Medium and QuantInsider, I learned about this M
 
 To start with the LSTM Model, the MinMaxScaler was imported to scale the data such that it can be fit into the model. Keras Sequential Model: The Sequential model is a linear stack of layers. LSTM Layer: The LSTM layer is used to create an LSTM network, which is suitable for sequence prediction problems. It can maintain long-term dependencies through its cell state and gates. Dense Layer: The Dense layer is a regular fully connected layer, which is used for outputting predictions or creating complex feature representations. After fetching the data for SPY, I plotted the data as show below.
 
+<img width="779" alt="Screenshot 2024-07-16 at 8 27 34 AM" src="https://github.com/user-attachments/assets/b40526e0-4ba8-49c2-9f42-1c6588eb2418">   
+
+I then trained my model on around 80% of the given data and used the 20% of the remaining to test the predictions of the model. If the model accurately predicts the data, we can then use it to give us insights into the market movement on those days and use that to take advantage of day trading.
+
+<img width="779" alt="Screenshot 2024-07-16 at 8 28 00 AM" src="https://github.com/user-attachments/assets/594330d5-beb4-486b-adbf-e2a4563d36e3">   
+
+To do this, first I set the training data set length to 0.8 of the entire data set and then I transformed the data using the MinMaxScaler to be in values between 0 and 1. The scaled data was then trained from 0 to the training length for all the columns.
+
+<img width="777" alt="Screenshot 2024-07-16 at 8 28 23 AM" src="https://github.com/user-attachments/assets/64060c7b-17f1-4a9c-9cef-fbd3c0f15611">   
+
+The first 60 values were added to the x train data and the 61st value was added to the y train data. This were then converted to numpy arrays so that the model can handle the data and the x was reshaped to be 3 dimensional because LSTM models utilize 3 dimensions.
+
+<img width="777" alt="Screenshot 2024-07-16 at 8 29 52 AM" src="https://github.com/user-attachments/assets/318e94c1-d855-48a5-bcd9-d7180f2f3b24">
+<img width="776" alt="Screenshot 2024-07-16 at 8 30 02 AM" src="https://github.com/user-attachments/assets/9079c1c5-de82-4c53-ac0e-b19129523833">
+<img width="774" alt="Screenshot 2024-07-16 at 8 30 17 AM" src="https://github.com/user-attachments/assets/a17368d0-4860-45b9-b210-c6a93c596432">
+<img width="777" alt="Screenshot 2024-07-16 at 8 30 27 AM" src="https://github.com/user-attachments/assets/f402009a-be1b-4c83-b026-b203f9cec54d">
+<img width="778" alt="Screenshot 2024-07-16 at 8 30 38 AM" src="https://github.com/user-attachments/assets/9d354a2b-5737-4746-956e-4d51ac60cd84">
+
+<img width="780" alt="Screenshot 2024-07-16 at 8 29 04 AM" src="https://github.com/user-attachments/assets/eaff864b-c5c1-4635-8a1e-2f9b36ce0e85">  
+
+Upon plotting the data, we can see that the predicted values are indeed very close to the actual values with a Root Mean Square Error of about 0.10. This suggests that this model could be effectively used to predict the price movements and trade. I then proceed to code further to quantify this.
+Using a similar approach I had used in the previous methods, I loop through the dataframe finding places where the value of the predictions had increased. If the value increased by more than 1 in dollar value I took a position of 2 otherwise a change of 0.2 was followed by a position of 1. The same was done if the predictions indicated a fall in price. The exit price was set as the closing price. This could be updated in
+future models to better improve the accuracy and profitability of the model.
+
+<img width="779" alt="Screenshot 2024-07-16 at 8 31 05 AM" src="https://github.com/user-attachments/assets/6481ae41-bb15-41c7-a0ba-3cd3f675cc5b">  
+
+Following is the tale of the data when I traded based on this model.
+
+<img width="781" alt="Screenshot 2024-07-16 at 8 31 25 AM" src="https://github.com/user-attachments/assets/4fef093a-b6a5-461d-88be-f0b9b902fea8">
+<img width="777" alt="Screenshot 2024-07-16 at 8 31 37 AM" src="https://github.com/user-attachments/assets/1cc0576e-1a88-4ceb-8cff-e22b19f9c3cf">
+<img width="778" alt="Screenshot 2024-07-16 at 8 31 48 AM" src="https://github.com/user-attachments/assets/703e8043-26c9-4a7d-bb81-9d91eaf94c4b">   
+
+Out of 653 trades taken of multiple positions, this model generated approximately $0.1 per trade.
+
+##### Risk Adjusted Returns
+It is important to realise what risks we are bearing and are accepting with each investment. To do so I am going to use the Sharpe Ratio which is a widely used metric in finance helping investors and traders evaluate the risk-adjusted return. To do this I will measure the excess return (return above the risk-free rate) per unit of volatility (standard deviation of the returns). It would quantify the amount of additional return received for the extra volatility endured.
+To understand the data presented in the tabular format below, a higher sharpe ratio indicates that the asset has provided better risk-adjusted ratios and more return for the same amount of risk or less risk for the same level of return. The Hit Ratio on the other hand would tell us the number of profitable trades taken as a fraction of all trades taken.
+
+<img width="776" alt="Screenshot 2024-07-16 at 8 32 24 AM" src="https://github.com/user-attachments/assets/52399f60-6a06-493f-a5c2-49e627c8a7ea">
+
+
+
+
 
 
 
