@@ -1,2 +1,3 @@
 # Python_Finance
-Theoretical Pricing Model using Black Scholes for Nifty 50 options
+
+[Intraday Strategies Case Study - Tanmay Gupta.pdf](https://github.com/user-attachments/files/16248239/Intraday.Strategies.Case.Study.-.Tanmay.Gupta.pdf)
